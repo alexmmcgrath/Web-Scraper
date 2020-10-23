@@ -6,9 +6,6 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-
-
-
 def ScrapeSite(url):
 
     response = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'})
@@ -68,11 +65,10 @@ def inputSQL(dataValues):
         else:
             sql = '''INSERT INTO WeatherDB.dbo.Weather (Location, [Current Temperature], Coverage, [Chance of Rain], [Today's High], [Today's Low], [Wind Speed], Humidity, [Dew Point], Pressure, [UV Index], Visibility, [Moon Phase], [Time Stamp]) VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', GETDATE())'''.format(dataValues[0], dataValues[1], dataValues[2], dataValues[3], hilo[0], hilo[1], dataValues[5], dataValues[6], dataValues[7], dataValues[8], dataValues[9], dataValues[10], dataValues[11])
 
-
     cursor.execute(sql)
 
     cnxn.commit()
-    print('Data is placed in DataBase')
+    #print('Data is placed in DataBase')
     
 
 
@@ -80,7 +76,6 @@ def inputSQL(dataValues):
 def startScraping():
        
      for cityName in configData:
-         #print(configData[cityName])
          inputSQL(ScrapeSite(configData[cityName]))
 
 if __name__ == "__main__":
